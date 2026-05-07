@@ -333,8 +333,8 @@ kubectl delete deploy -n kagent-heal-demo crashloop-env-demo
 ## Manifest file
 
 ```bash
-# Create OOMKilled demo with very low memory limit
-cat > 04-oomkilled.yaml <<'EOF'
+# Create fixed OOMKilled demo manifest
+cat > 04-oomkilled-fixed-demo.yaml <<'EOF'
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -358,16 +358,28 @@ spec:
             - -c
             - |
               python - <<'PY'
+              import time
+
               data = []
-              while True:
-                  data.append("x" * 1024 * 1024)
+              print("Starting memory allocation demo...", flush=True)
+
+              # Allocate around 120 MiB memory.
+              # This will fail when memory limit is 64Mi.
+              for i in range(120):
+                  data.append(b"x" * 1024 * 1024)
+                  if i % 20 == 0:
+                      print(f"Allocated {i} MiB", flush=True)
+
+              print("Memory allocation completed successfully", flush=True)
+              print("App is healthy now", flush=True)
+              time.sleep(3600)
               PY
           resources:
             requests:
-              memory: "16Mi"
+              memory: "32Mi"
               cpu: "50m"
             limits:
-              memory: "32Mi"
+              memory: "64Mi"
               cpu: "200m"
 EOF
 ```
@@ -396,25 +408,29 @@ Reason: OOMKilled
 ## kagent healing prompt
 
 ```text
-In namespace kagent-heal-demo, deployment oom-demo is restarting.
+In namespace kagent-heal-demo, deployment oom-demo is unhealthy.
 
-Diagnose:
-1. Check pod status
-2. Check previous container termination reason
-3. Check events
-4. Check memory request and limit
+Start with read-only diagnosis:
 
-If the container was OOMKilled and current memory limit is 32Mi, patch deployment oom-demo to:
+Check Deployment oom-demo
+Check Pod status
+Check container last termination reason
+Check Events
+Check current memory request and memory limit
+Check container command to understand expected memory usage
+If the pod is failing with OOMKilled patch only deployment oom-demo with:
 
-requests.memory = 128Mi
-limits.memory = 256Mi
+requests.memory = 128Mi limits.memory = 256Mi
+
+Keep CPU unchanged.
 
 After patching, verify:
-1. Rollout status
-2. Pod status
-3. Restart count
 
-Only modify deployment oom-demo in namespace kagent-heal-demo.
+Deployment rollout status
+Pod status is Running
+Restart count is not increasing
+Container logs show "Memory allocation completed successfully"
+Only modify deployment oom-demo in namespace kagent-heal-demo. Do not modify any other resource.
 ```
 
 ## Manual fix command
