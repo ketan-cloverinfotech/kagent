@@ -322,7 +322,10 @@ kubectl set env deployment/crashloop-env-demo \
   DB_HOST=demo-db.kagent-heal-demo.svc.cluster.local \
   -n kagent-heal-demo
 ```
-
+## Delete
+```
+kubectl delete deploy -n kagent-heal-demo crashloop-env-demo
+```
 ---
 
 # 4. OOMKilled due to low memory limit
