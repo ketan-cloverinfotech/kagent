@@ -1,37 +1,6 @@
 # Kagent Auto-Healing Pods
 
-**User:** Anonymous  
-**Created:** 5/5/2026 10:11:28  
-**Updated:** 5/7/2026 17:17:38  
-**Exported:** 5/7/2026 17:39:49  
-**Link:** [https://chatgpt.com/c/69f974d1-1ca8-83e8-9afa-6b7750695847](https://chatgpt.com/c/69f974d1-1ca8-83e8-9afa-6b7750695847)  
 
-## Response:
-5/7/2026, 5:15:26 PM
-
-> **Browsing for Kubernetes tools and troubleshooting resources**
->
-> [kagent | Bringing Agentic AI to cloud native](https://kagent.dev/)
-> [GitHub - kagent-dev/kagent: Cloud Native Agentic AI](https://github.com/kagent-dev/kagent)
-> [kagent Documentation](https://www.kagent.dev/docs/kagent)
-> [kagent | CNCF](https://www.cncf.io/projects/kagent/)
-> [Kagent: When AI Agents Meet Kubernetes | by Jason Clark](https://medium.com/craine-operators-blog/kagent-when-ai-agents-meet-kubernetes-ac84da909ef5)
-> [Kagent: Kubernetes-Native Agent Runtime](https://www.solo.io/products/kagent)
->
-> **Creating structured demo with healing use cases**
->
-> I need to provide a detailed demo including 11 use cases for kagent-managed healing. This’ll involve creating manifests that can be applied using kubectl, with inline steps, expected output, and prompts for healing. I'll make sure to mention safety boundaries and optional diagnosis features. Citing kagent's official docs will also be important for clarity.
->
-> **Creating KAgent Managed Healing Demo Pack with Manifests**
->
-> [GitHub](https://kagent.dev/agents/k8s-agent)
-> [kagent Documentation](https://www.kagent.dev/docs/kagent)
->
-> Thought for 43s
-
-I’ll make this as a hands-on demo pack: one namespace, one broken manifest per issue, the kagent healing prompt, and the expected safe action. For dangerous cases like secrets/storage, I’ll keep the action as suggestion-first.
-
-I found the safest way is to make each issue as a small isolated Deployment/Pod in one namespace. You can apply one demo at a time, then paste the matching kagent prompt and let it diagnose or heal.
 
 ## kagent managed-healing demo pack
 
@@ -1217,5 +1186,3 @@ Human approval required:
 
 
 
----
-Powered by [ChatGPT Exporter](https://www.chatgptexporter.com)
