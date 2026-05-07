@@ -127,13 +127,20 @@ Do not modify any other resource.
 # Confirm deployment is healthy after rollback
 kubectl rollout status deployment/imagepull-demo -n kagent-heal-demo
 ```
+## history
+```
+kubectl delete deploy -n kagent-heal-demo imagepull-demo
+```
 
 ```bash
 # Confirm image is back to nginx:latest
 kubectl get deployment imagepull-demo -n kagent-heal-demo \
   -o jsonpath='{.spec.template.spec.containers[*].image}{"\n"}'
 ```
-
+## delete the resorce
+```
+kubectl delete deploy -n kagent-heal-demo imagepull-demo
+```
 ---
 
 # 2. ErrImagePull private registry issue
