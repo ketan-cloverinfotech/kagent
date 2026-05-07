@@ -634,7 +634,10 @@ kubectl patch deployment readiness-demo -n kagent-heal-demo --type='json' -p='[
   }
 ]'
 ```
-
+## Delete
+```
+kubectl delete deploy  -n kagent-heal-demo liveness-demo
+```
 ---
 
 # 7. Pod stuck Pending
