@@ -450,6 +450,10 @@ For real apps, do not blindly increase memory.
 Check metrics first, then set request/limit based on real usage.
 ```
 
+## Delete
+```
+kubectl delete  deploy -n kagent-heal-demo oom-demo
+```
 ---
 
 # 5. Wrong liveness probe
